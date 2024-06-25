@@ -1,0 +1,657 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Exported from Altair Inspire
+//  Version : 2022.3 Build 13857
+//  Date : 08/08/23 21:29:13
+//
+////////////////////////////////////////////////////////////////////////////////
+
+*BeginMDL (inspire3___simulacao3, "inspire3 - simulacao3")
+  
+  // Settings
+  *SetCurrentSolverMode (MotionSolve)
+  *SetOption (DS_Gravity.op_gravity, "On")
+  *SetReal (DS_Gravity.kgrav, -9.80665)
+  *SetOption (DS_Units.op_force, "NEWTON")
+  *SetOption (DS_Units.op_length, "METER")
+  *SetOption (DS_Units.op_mass, "KILOGRAM")
+  *SetOption (DS_Units.op_time, "SECOND")
+  *SetOption (DS_MotionSolve_Simopts.analysis_type, "Transient")
+  *SetReal (DS_MotionSolve_Simopts.end_time, 10.0)
+  *SetReal (DS_MotionSolve_Simopts.print_interval, 0.01)
+  *SetBoolean (DS_MotionSolve_Simopts.contact_iteration, True)
+  *SetReal (DS_MotionSolve_Transient_Simopts.h_max, 0.001)
+  *SetReal (DS_MotionSolve_Transient_Simopts.dae_constr_tol, 1e-07)
+  *SetInteger (DS_MotionSolve_Transient_Simopts.dae_jacob_init, 1)
+  *SetInteger (DS_MotionSolve_Transient_Simopts.dae_jacob_eval, 0)
+  *SetInteger (DS_MotionSolve_Transient_Simopts.dae_index, 3)
+  *SetOption (DS_MotionSolve_Static_Simopts.static_method, "Force Imbalance - Type D")
+  *SetBoolean (DS_MotionSolve_Simopts.no_req_id, True)
+  
+  *System (sys_inspire3___simulacao3, "inspire3___simulacao3", def_sys_inspire3___simulacao3)
+  
+  *DataSet (DS_SystemBushingRates, "System Bushing Rates", def_DS_SystemBushingRates)
+  
+  
+  
+  // Ids/Nums/Notes
+
+*DefineSystem (def_sys_inspire3___simulacao3)
+  *Body (bucha, "bucha", bucha_cg, , , , )
+  *SetBody (bucha, 0.008687510119744554, 3.009942750088417e-07, 3.0104560382738474e-07, 3.7861637172338795e-07, -1.2352457151656796e-09, -5.622593136436073e-14, -2.0267918154935476e-14)
+  *SetBodyIC (bucha, OFF, OFF, OFF, OFF, OFF, OFF)
+  *SetOrientation (bucha.lprf, ANGLES, , 135.59682421010598, 90.00000000009237, 179.99999999990953)
+  
+  *Point (bucha_cg, "bucha_cg")
+  *SetPoint (bucha_cg, 0.017999997233965406, 0.0014999979165131684, -0.00915813419381006)
+  
+  *Output (bucha_ke_output, "bucha - Energia Cinética", EXPR, `KE({bucha.idstring})`, , , , , )
+  *Set (bucha_ke_output.cnames, {"","KE","","","","","",""})
+  *Set (bucha_ke_output.use_units, true)
+  
+  *Output (bucha_DISPLACEMENT, "bucha - DESLOCAMENTO", DISP, bucha, Global_Frame, I_MARKER)
+  *Set (bucha_DISPLACEMENT.cnames, {"MAG","X","Y","Z","","PSI","THETA","PHI"})
+  *Set (bucha_DISPLACEMENT.use_units, true)
+  
+  *Output (bucha_VELOCITY, "bucha - VELOCIDADE", VEL, bucha, Global_Frame, I_MARKER)
+  *Set (bucha_VELOCITY.cnames, {"VM","VX","VY","VZ","WM","WX","WY","WZ"})
+  *Set (bucha_VELOCITY.use_units, true)
+  
+  *Output (bucha_ACCELERATION, "bucha - ACELERAÇÃO", ACCL, bucha, Global_Frame, I_MARKER)
+  *Set (bucha_ACCELERATION.cnames, {"ACCM","ACCX","ACCY","ACCZ","WDTM","WDTX","WDTY","WDTZ"})
+  *Set (bucha_ACCELERATION.use_units, true)
+  
+  *Graphic (bucha_cadGraphic, "bucha - CADGraphic", CADGraphic, bucha, False, 60, "inspire3 - simulacao3_MKS.x_t", {"bucha"}, MARKER, Global_Frame, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 1, 1)
+  *SetColorMaterialReference (bucha_cadGraphic, mat_814c74)
+  
+  *Body (Grupo_R_gido_1, "Grupo Rígido 1", Grupo_R_gido_1_cg, , , , )
+  *SetBody (Grupo_R_gido_1, 0.3063313110828455, 7.637635273909108e-05, 0.0005889900710520863, 0.0005687204830496532, -1.0273545628003373e-08, 9.909037456882756e-05, -3.745078533910506e-09)
+  *SetBodyIC (Grupo_R_gido_1, OFF, OFF, OFF, OFF, OFF, OFF)
+  
+  *Point (Grupo_R_gido_1_cg, "Grupo Rígido 1_cg")
+  *SetPoint (Grupo_R_gido_1_cg, 0.11548117876951801, 0.0014986724528017069, 0.008402889667637796)
+  
+  *Output (Grupo_R_gido_1_ke_output, "Grupo Rígido 1 - Energia Cinética", EXPR, `KE({Grupo_R_gido_1.idstring})`, , , , , )
+  *Set (Grupo_R_gido_1_ke_output.cnames, {"","KE","","","","","",""})
+  *Set (Grupo_R_gido_1_ke_output.use_units, true)
+  
+  *Output (Grupo_R_gido_1_DISPLACEMENT, "Grupo Rígido 1 - DESLOCAMENTO", DISP, Grupo_R_gido_1, Global_Frame, I_MARKER)
+  *Set (Grupo_R_gido_1_DISPLACEMENT.cnames, {"MAG","X","Y","Z","","PSI","THETA","PHI"})
+  *Set (Grupo_R_gido_1_DISPLACEMENT.use_units, true)
+  
+  *Output (Grupo_R_gido_1_VELOCITY, "Grupo Rígido 1 - VELOCIDADE", VEL, Grupo_R_gido_1, Global_Frame, I_MARKER)
+  *Set (Grupo_R_gido_1_VELOCITY.cnames, {"VM","VX","VY","VZ","WM","WX","WY","WZ"})
+  *Set (Grupo_R_gido_1_VELOCITY.use_units, true)
+  
+  *Output (Grupo_R_gido_1_ACCELERATION, "Grupo Rígido 1 - ACELERAÇÃO", ACCL, Grupo_R_gido_1, Global_Frame, I_MARKER)
+  *Set (Grupo_R_gido_1_ACCELERATION.cnames, {"ACCM","ACCX","ACCY","ACCZ","WDTM","WDTX","WDTY","WDTZ"})
+  *Set (Grupo_R_gido_1_ACCELERATION.use_units, true)
+  
+  *Graphic (Grupo_R_gido_1_GraphicSystem, "Grupo_R_gido_1 - GraphicSystem", def_Grupo_R_gido_1_GraphicSystem)
+  
+  *Body (bucha_1, "bucha", bucha_1_cg, , , , )
+  *SetBody (bucha_1, 0.008687510119744554, 3.7861637172338795e-07, 3.0104560241817677e-07, 3.0099427641804967e-07, 2.0267535984264765e-14, -5.622594850040541e-14, 1.235245744443691e-09)
+  *SetBodyIC (bucha_1, OFF, OFF, OFF, OFF, OFF, OFF)
+  *SetOrientation (bucha_1.lprf, ANGLES, , 1.2929590891085492e-10, 45.59679152767457, 90.0)
+  
+  *Point (bucha_1_cg, "bucha_cg")
+  *SetPoint (bucha_1_cg, 0.16434186214796026, 0.0015000031573459314, 0.01749999773408378)
+  
+  *Output (bucha_1_ke_output, "bucha - Energia Cinética 2", EXPR, `KE({bucha_1.idstring})`, , , , , )
+  *Set (bucha_1_ke_output.cnames, {"","KE","","","","","",""})
+  *Set (bucha_1_ke_output.use_units, true)
+  
+  *Output (bucha_1_DISPLACEMENT, "bucha - DESLOCAMENTO 2", DISP, bucha_1, Global_Frame, I_MARKER)
+  *Set (bucha_1_DISPLACEMENT.cnames, {"MAG","X","Y","Z","","PSI","THETA","PHI"})
+  *Set (bucha_1_DISPLACEMENT.use_units, true)
+  
+  *Output (bucha_1_VELOCITY, "bucha - VELOCIDADE 2", VEL, bucha_1, Global_Frame, I_MARKER)
+  *Set (bucha_1_VELOCITY.cnames, {"VM","VX","VY","VZ","WM","WX","WY","WZ"})
+  *Set (bucha_1_VELOCITY.use_units, true)
+  
+  *Output (bucha_1_ACCELERATION, "bucha - ACELERAÇÃO 2", ACCL, bucha_1, Global_Frame, I_MARKER)
+  *Set (bucha_1_ACCELERATION.cnames, {"ACCM","ACCX","ACCY","ACCZ","WDTM","WDTX","WDTY","WDTZ"})
+  *Set (bucha_1_ACCELERATION.use_units, true)
+  
+  *Graphic (bucha_1_cadGraphic, "bucha - CADGraphic", CADGraphic, bucha_1, False, 60, "inspire3 - simulacao3_MKS.x_t", {"bucha_1"}, MARKER, Global_Frame, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 1, 1)
+  *SetColorMaterialReference (bucha_1_cadGraphic, mat_814c74)
+  
+  *Body (aba1_1, "aba1", aba1_1_cg, , , , )
+  *SetBody (aba1_1, 0.14399798115166507, 0.0003293702102038071, 0.00032037007703760877, 2.2632382288442435e-05, -2.2089754697650298e-17, 1.879731021426117e-05, -7.144172793856772e-16)
+  *SetBodyIC (aba1_1, OFF, OFF, OFF, OFF, OFF, OFF)
+  *SetOrientation (aba1_1.lprf, ANGLES, , 89.99999999987071, 90.0, 1.2931433663900805e-10)
+  
+  *Point (aba1_1_cg, "aba1_cg")
+  *SetPoint (aba1_1_cg, 0.16747572269282418, 0.0015000019522273117, -0.0514942258712891)
+  
+  *Output (aba1_1_ke_output, "aba1 - Energia Cinética", EXPR, `KE({aba1_1.idstring})`, , , , , )
+  *Set (aba1_1_ke_output.cnames, {"","KE","","","","","",""})
+  *Set (aba1_1_ke_output.use_units, true)
+  
+  *Output (aba1_1_DISPLACEMENT, "aba1 - DESLOCAMENTO", DISP, aba1_1, Global_Frame, I_MARKER)
+  *Set (aba1_1_DISPLACEMENT.cnames, {"MAG","X","Y","Z","","PSI","THETA","PHI"})
+  *Set (aba1_1_DISPLACEMENT.use_units, true)
+  
+  *Output (aba1_1_VELOCITY, "aba1 - VELOCIDADE", VEL, aba1_1, Global_Frame, I_MARKER)
+  *Set (aba1_1_VELOCITY.cnames, {"VM","VX","VY","VZ","WM","WX","WY","WZ"})
+  *Set (aba1_1_VELOCITY.use_units, true)
+  
+  *Output (aba1_1_ACCELERATION, "aba1 - ACELERAÇÃO", ACCL, aba1_1, Global_Frame, I_MARKER)
+  *Set (aba1_1_ACCELERATION.cnames, {"ACCM","ACCX","ACCY","ACCZ","WDTM","WDTX","WDTY","WDTZ"})
+  *Set (aba1_1_ACCELERATION.use_units, true)
+  
+  *Graphic (aba1_1_cadGraphic, "aba1 - CADGraphic", CADGraphic, aba1_1, False, 60, "inspire3 - simulacao3_MKS.x_t", {"aba1_1"}, MARKER, Global_Frame, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 1, 1)
+  *SetColorMaterialReference (aba1_1_cadGraphic, mat_4bacc6)
+  
+  *Point (Junta_43_origin, "Junta 43 - REVOLUTE_origin")
+  *SetPoint (Junta_43_origin, 0.1684999988028643, 0.009500001952069147, 0.01751621638507514)
+  
+  *Vector (Junta_43_axis, `Junta 43 - REVOLUTE`)
+  *SetVector (Junta_43_axis, 0.005000004534807312, -1.1287845658181084e-14, 0.0)
+  *RevJoint (Junta_43, "Junta 43 - REVOLUTE", bucha_1, aba1_1, Junta_43_origin, VECTOR, Junta_43_axis, ALLOW_COMPLIANCE)
+  *SetJointIC (Junta_43, ROT, 0.0, 0.0)
+  *SetJointICFlag (Junta_43, ROT, False)
+  *Set (Junta_43.isbush, True)
+  *SetBush (Junta_43.bush, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.kt.value, LIN, DS_SystemBushingRates.kt.value, LIN, 0.0, LIN, DS_SystemBushingRates.ct.value, LIN, DS_SystemBushingRates.ct.value, LIN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+  *SetOrientation (Junta_43.bush, ANGLES, , 89.99999999987065, 90.0, -90.0)
+  
+  *Output (Junta_43_DISPLACEMENT, "Junta 43 - REVOLUTE - DESLOCAMENTO", DISP, Junta_43, Global_Frame, I_MARKER)
+  *Set (Junta_43_DISPLACEMENT.cnames, {"MAG","X","Y","Z","","PSI","THETA","PHI"})
+  *Set (Junta_43_DISPLACEMENT.use_units, true)
+  
+  *Output (Junta_43_VELOCITY, "Junta 43 - REVOLUTE - VELOCIDADE", VEL, Junta_43, Global_Frame, I_MARKER)
+  *Set (Junta_43_VELOCITY.cnames, {"VM","VX","VY","VZ","WM","WX","WY","WZ"})
+  *Set (Junta_43_VELOCITY.use_units, true)
+  
+  *Output (Junta_43_ACCELERATION, "Junta 43 - REVOLUTE - ACELERAÇÃO", ACCL, Junta_43, Global_Frame, I_MARKER)
+  *Set (Junta_43_ACCELERATION.cnames, {"ACCM","ACCX","ACCY","ACCZ","WDTM","WDTX","WDTY","WDTZ"})
+  *Set (Junta_43_ACCELERATION.use_units, true)
+  
+  *Output (Junta_43_FORCE, "Junta 43 - REVOLUTE - FORÇA", FORCE, Junta_43, Global_Frame, I_MARKER)
+  *Set (Junta_43_FORCE.cnames, {"FM","FX","FY","FZ","TM","TX","TY","TZ"})
+  *Set (Junta_43_FORCE.use_units, true)
+  
+  *Sensor (sen_0, "Junta 43 - REVOLUTE Sensor Revolute DM")
+  *SetSensor (sen_0, EXPR, `DM({Junta_43.i.idstring}, {Junta_43.j.idstring})`, 0.001, GE, 1e-05, NO_CODGEN, OFF, HALT, NO_PRINT, NO_RESTART, NO_RETURN, 0.0)
+  
+  *Point (Junta_44_origin, "Junta 44 - REVOLUTE_origin")
+  *SetPoint (Junta_44_origin, 0.16849999880286426, 0.0015000019520871322, 0.009516216385057077)
+  
+  *Vector (Junta_44_axis, `Junta 44 - REVOLUTE`)
+  *SetVector (Junta_44_axis, 0.005000004534771202, -1.1289363541222563e-14, 2.7755575615628914e-17)
+  *RevJoint (Junta_44, "Junta 44 - REVOLUTE", bucha_1, aba1_1, Junta_44_origin, VECTOR, Junta_44_axis, ALLOW_COMPLIANCE)
+  *SetJointIC (Junta_44, ROT, 0.0, 0.0)
+  *SetJointICFlag (Junta_44, ROT, False)
+  *Set (Junta_44.isbush, True)
+  *SetBush (Junta_44.bush, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.kt.value, LIN, DS_SystemBushingRates.kt.value, LIN, 0.0, LIN, DS_SystemBushingRates.ct.value, LIN, DS_SystemBushingRates.ct.value, LIN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+  *SetOrientation (Junta_44.bush, ANGLES, , 89.99999999987064, 89.99999999999969, -90.0)
+  
+  *Output (Junta_44_DISPLACEMENT, "Junta 44 - REVOLUTE - DESLOCAMENTO", DISP, Junta_44, Global_Frame, I_MARKER)
+  *Set (Junta_44_DISPLACEMENT.cnames, {"MAG","X","Y","Z","","PSI","THETA","PHI"})
+  *Set (Junta_44_DISPLACEMENT.use_units, true)
+  
+  *Output (Junta_44_VELOCITY, "Junta 44 - REVOLUTE - VELOCIDADE", VEL, Junta_44, Global_Frame, I_MARKER)
+  *Set (Junta_44_VELOCITY.cnames, {"VM","VX","VY","VZ","WM","WX","WY","WZ"})
+  *Set (Junta_44_VELOCITY.use_units, true)
+  
+  *Output (Junta_44_ACCELERATION, "Junta 44 - REVOLUTE - ACELERAÇÃO", ACCL, Junta_44, Global_Frame, I_MARKER)
+  *Set (Junta_44_ACCELERATION.cnames, {"ACCM","ACCX","ACCY","ACCZ","WDTM","WDTX","WDTY","WDTZ"})
+  *Set (Junta_44_ACCELERATION.use_units, true)
+  
+  *Output (Junta_44_FORCE, "Junta 44 - REVOLUTE - FORÇA", FORCE, Junta_44, Global_Frame, I_MARKER)
+  *Set (Junta_44_FORCE.cnames, {"FM","FX","FY","FZ","TM","TX","TY","TZ"})
+  *Set (Junta_44_FORCE.use_units, true)
+  
+  *Sensor (sen_1, "Junta 44 - REVOLUTE Sensor Revolute DM")
+  *SetSensor (sen_1, EXPR, `DM({Junta_44.i.idstring}, {Junta_44.j.idstring})`, 0.001, GE, 1e-05, NO_CODGEN, OFF, HALT, NO_PRINT, NO_RESTART, NO_RETURN, 0.0)
+  
+  *Point (Junta_45_origin, "Junta 45 - REVOLUTE_origin")
+  *SetPoint (Junta_45_origin, 0.16849999880286426, 0.0015000019520511909, 0.025516216385057106)
+  
+  *Vector (Junta_45_axis, `Junta 45 - REVOLUTE`)
+  *SetVector (Junta_45_axis, 0.005000004534771202, -1.1286761456008598e-14, 0.0)
+  *RevJoint (Junta_45, "Junta 45 - REVOLUTE", bucha_1, aba1_1, Junta_45_origin, VECTOR, Junta_45_axis, ALLOW_COMPLIANCE)
+  *SetJointIC (Junta_45, ROT, 0.0, 0.0)
+  *SetJointICFlag (Junta_45, ROT, False)
+  *Set (Junta_45.isbush, True)
+  *SetBush (Junta_45.bush, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.kt.value, LIN, DS_SystemBushingRates.kt.value, LIN, 0.0, LIN, DS_SystemBushingRates.ct.value, LIN, DS_SystemBushingRates.ct.value, LIN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+  *SetOrientation (Junta_45.bush, ANGLES, , 89.99999999987067, 90.0, -90.0)
+  
+  *Output (Junta_45_DISPLACEMENT, "Junta 45 - REVOLUTE - DESLOCAMENTO", DISP, Junta_45, Global_Frame, I_MARKER)
+  *Set (Junta_45_DISPLACEMENT.cnames, {"MAG","X","Y","Z","","PSI","THETA","PHI"})
+  *Set (Junta_45_DISPLACEMENT.use_units, true)
+  
+  *Output (Junta_45_VELOCITY, "Junta 45 - REVOLUTE - VELOCIDADE", VEL, Junta_45, Global_Frame, I_MARKER)
+  *Set (Junta_45_VELOCITY.cnames, {"VM","VX","VY","VZ","WM","WX","WY","WZ"})
+  *Set (Junta_45_VELOCITY.use_units, true)
+  
+  *Output (Junta_45_ACCELERATION, "Junta 45 - REVOLUTE - ACELERAÇÃO", ACCL, Junta_45, Global_Frame, I_MARKER)
+  *Set (Junta_45_ACCELERATION.cnames, {"ACCM","ACCX","ACCY","ACCZ","WDTM","WDTX","WDTY","WDTZ"})
+  *Set (Junta_45_ACCELERATION.use_units, true)
+  
+  *Output (Junta_45_FORCE, "Junta 45 - REVOLUTE - FORÇA", FORCE, Junta_45, Global_Frame, I_MARKER)
+  *Set (Junta_45_FORCE.cnames, {"FM","FX","FY","FZ","TM","TX","TY","TZ"})
+  *Set (Junta_45_FORCE.use_units, true)
+  
+  *Sensor (sen_2, "Junta 45 - REVOLUTE Sensor Revolute DM")
+  *SetSensor (sen_2, EXPR, `DM({Junta_45.i.idstring}, {Junta_45.j.idstring})`, 0.001, GE, 1e-05, NO_CODGEN, OFF, HALT, NO_PRINT, NO_RESTART, NO_RETURN, 0.0)
+  
+  *Point (Junta_46_origin, "Junta 46 - REVOLUTE_origin")
+  *SetPoint (Junta_46_origin, 0.16849999880286426, -0.006499998047930885, 0.017516216385039113)
+  
+  *Vector (Junta_46_axis, `Junta 46 - REVOLUTE`)
+  *SetVector (Junta_46_axis, 0.005000004534735092, -1.1280039402539188e-14, 0.0)
+  *RevJoint (Junta_46, "Junta 46 - REVOLUTE", bucha_1, aba1_1, Junta_46_origin, VECTOR, Junta_46_axis, ALLOW_COMPLIANCE)
+  *SetJointIC (Junta_46, ROT, 0.0, 0.0)
+  *SetJointICFlag (Junta_46, ROT, False)
+  *Set (Junta_46.isbush, True)
+  *SetBush (Junta_46.bush, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.kt.value, LIN, DS_SystemBushingRates.kt.value, LIN, 0.0, LIN, DS_SystemBushingRates.ct.value, LIN, DS_SystemBushingRates.ct.value, LIN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+  *SetOrientation (Junta_46.bush, ANGLES, , 89.99999999987074, 90.0, -90.0)
+  
+  *Output (Junta_46_DISPLACEMENT, "Junta 46 - REVOLUTE - DESLOCAMENTO", DISP, Junta_46, Global_Frame, I_MARKER)
+  *Set (Junta_46_DISPLACEMENT.cnames, {"MAG","X","Y","Z","","PSI","THETA","PHI"})
+  *Set (Junta_46_DISPLACEMENT.use_units, true)
+  
+  *Output (Junta_46_VELOCITY, "Junta 46 - REVOLUTE - VELOCIDADE", VEL, Junta_46, Global_Frame, I_MARKER)
+  *Set (Junta_46_VELOCITY.cnames, {"VM","VX","VY","VZ","WM","WX","WY","WZ"})
+  *Set (Junta_46_VELOCITY.use_units, true)
+  
+  *Output (Junta_46_ACCELERATION, "Junta 46 - REVOLUTE - ACELERAÇÃO", ACCL, Junta_46, Global_Frame, I_MARKER)
+  *Set (Junta_46_ACCELERATION.cnames, {"ACCM","ACCX","ACCY","ACCZ","WDTM","WDTX","WDTY","WDTZ"})
+  *Set (Junta_46_ACCELERATION.use_units, true)
+  
+  *Output (Junta_46_FORCE, "Junta 46 - REVOLUTE - FORÇA", FORCE, Junta_46, Global_Frame, I_MARKER)
+  *Set (Junta_46_FORCE.cnames, {"FM","FX","FY","FZ","TM","TX","TY","TZ"})
+  *Set (Junta_46_FORCE.use_units, true)
+  
+  *Sensor (sen_3, "Junta 46 - REVOLUTE Sensor Revolute DM")
+  *SetSensor (sen_3, EXPR, `DM({Junta_46.i.idstring}, {Junta_46.j.idstring})`, 0.001, GE, 1e-05, NO_CODGEN, OFF, HALT, NO_PRINT, NO_RESTART, NO_RETURN, 0.0)
+  
+  *Point (Junta_47_origin, "Junta 47 - CYLINDRICAL_origin")
+  *SetPoint (Junta_47_origin, 0.1595000015869757, 0.0014974944934171848, 0.017609249689506848)
+  
+  *Vector (Junta_47_axis, `Junta 47 - CYLINDRICAL`)
+  *SetVector (Junta_47_axis, -0.017000000000000015, 3.8362975990358095e-14, 0.0)
+  *CylJoint (Junta_47, "Junta 47 - CYLINDRICAL", Grupo_R_gido_1, bucha_1, Junta_47_origin, VECTOR, Junta_47_axis, ALLOW_COMPLIANCE)
+  *SetJointIC (Junta_47, ROT, 0.0, 0.0)
+  *SetJointICFlag (Junta_47, ROT, False)
+  *Set (Junta_47.isbush, True)
+  *SetBush (Junta_47.bush, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, 0.0, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, 0.0, LIN, DS_SystemBushingRates.kt.value, LIN, DS_SystemBushingRates.kt.value, LIN, 0.0, LIN, DS_SystemBushingRates.ct.value, LIN, DS_SystemBushingRates.ct.value, LIN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+  *SetOrientation (Junta_47.bush, ANGLES, , -90.00000000012929, 90.0, 90.0)
+  
+  *Output (Junta_47_DISPLACEMENT, "Junta 47 - CYLINDRICAL - DESLOCAMENTO", DISP, Junta_47, Global_Frame, I_MARKER)
+  *Set (Junta_47_DISPLACEMENT.cnames, {"MAG","X","Y","Z","","PSI","THETA","PHI"})
+  *Set (Junta_47_DISPLACEMENT.use_units, true)
+  
+  *Output (Junta_47_VELOCITY, "Junta 47 - CYLINDRICAL - VELOCIDADE", VEL, Junta_47, Global_Frame, I_MARKER)
+  *Set (Junta_47_VELOCITY.cnames, {"VM","VX","VY","VZ","WM","WX","WY","WZ"})
+  *Set (Junta_47_VELOCITY.use_units, true)
+  
+  *Output (Junta_47_ACCELERATION, "Junta 47 - CYLINDRICAL - ACELERAÇÃO", ACCL, Junta_47, Global_Frame, I_MARKER)
+  *Set (Junta_47_ACCELERATION.cnames, {"ACCM","ACCX","ACCY","ACCZ","WDTM","WDTX","WDTY","WDTZ"})
+  *Set (Junta_47_ACCELERATION.use_units, true)
+  
+  *Output (Junta_47_FORCE, "Junta 47 - CYLINDRICAL - FORÇA", FORCE, Junta_47, Global_Frame, I_MARKER)
+  *Set (Junta_47_FORCE.cnames, {"FM","FX","FY","FZ","TM","TX","TY","TZ"})
+  *Set (Junta_47_FORCE.use_units, true)
+  
+  *Sensor (sen_4, "Junta 47 - CYLINDRICAL Sensor Cylindrical MAG DXDY")
+  *SetSensor (sen_4, EXPR, `SQRT(DX({Junta_47.i.idstring}, {Junta_47.j.idstring}, {Junta_47.j.idstring})**2 + DY({Junta_47.i.idstring}, {Junta_47.j.idstring}, {Junta_47.j.idstring})**2)`, 0.001, GE, 1e-05, NO_CODGEN, OFF, HALT, NO_PRINT, NO_RESTART, NO_RETURN, 0.0)
+  
+  *Point (Junta_48_origin, "Junta 48 - REVOLUTE_origin")
+  *SetPoint (Junta_48_origin, 0.026000000864267347, 0.0015000004022852648, -0.004999999923794991)
+  
+  *Vector (Junta_48_axis, `Junta 48 - REVOLUTE`)
+  *SetVector (Junta_48_axis, -3.469446951953614e-18, -2.257092082680323e-14, 0.004999999764993298)
+  *RevJoint (Junta_48, "Junta 48 - REVOLUTE", bucha, Grupo_R_gido_1, Junta_48_origin, VECTOR, Junta_48_axis, ALLOW_COMPLIANCE)
+  *SetJointIC (Junta_48, ROT, 0.0, 0.0)
+  *SetJointICFlag (Junta_48, ROT, False)
+  *Set (Junta_48.isbush, True)
+  *SetBush (Junta_48.bush, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.kt.value, LIN, DS_SystemBushingRates.kt.value, LIN, 0.0, LIN, DS_SystemBushingRates.ct.value, LIN, DS_SystemBushingRates.ct.value, LIN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+  *SetOrientation (Junta_48.bush, ANGLES, , 0.0, 0.0, -1.7947013662225213e-25)
+  
+  *Output (Junta_48_DISPLACEMENT, "Junta 48 - REVOLUTE - DESLOCAMENTO", DISP, Junta_48, Global_Frame, I_MARKER)
+  *Set (Junta_48_DISPLACEMENT.cnames, {"MAG","X","Y","Z","","PSI","THETA","PHI"})
+  *Set (Junta_48_DISPLACEMENT.use_units, true)
+  
+  *Output (Junta_48_VELOCITY, "Junta 48 - REVOLUTE - VELOCIDADE", VEL, Junta_48, Global_Frame, I_MARKER)
+  *Set (Junta_48_VELOCITY.cnames, {"VM","VX","VY","VZ","WM","WX","WY","WZ"})
+  *Set (Junta_48_VELOCITY.use_units, true)
+  
+  *Output (Junta_48_ACCELERATION, "Junta 48 - REVOLUTE - ACELERAÇÃO", ACCL, Junta_48, Global_Frame, I_MARKER)
+  *Set (Junta_48_ACCELERATION.cnames, {"ACCM","ACCX","ACCY","ACCZ","WDTM","WDTX","WDTY","WDTZ"})
+  *Set (Junta_48_ACCELERATION.use_units, true)
+  
+  *Output (Junta_48_FORCE, "Junta 48 - REVOLUTE - FORÇA", FORCE, Junta_48, Global_Frame, I_MARKER)
+  *Set (Junta_48_FORCE.cnames, {"FM","FX","FY","FZ","TM","TX","TY","TZ"})
+  *Set (Junta_48_FORCE.use_units, true)
+  
+  *Sensor (sen_5, "Junta 48 - REVOLUTE Sensor Revolute DM")
+  *SetSensor (sen_5, EXPR, `DM({Junta_48.i.idstring}, {Junta_48.j.idstring})`, 0.001, GE, 1e-05, NO_CODGEN, OFF, HALT, NO_PRINT, NO_RESTART, NO_RETURN, 0.0)
+  
+  *Point (Junta_49_origin, "Junta 49 - REVOLUTE_origin")
+  *SetPoint (Junta_49_origin, 0.018000000864249188, 0.009500000402267174, -0.004999999923785962)
+  
+  *Vector (Junta_49_axis, `Junta 49 - REVOLUTE`)
+  *SetVector (Junta_49_axis, 0.0, -2.2565282975506307e-14, 0.004999999765047461)
+  *RevJoint (Junta_49, "Junta 49 - REVOLUTE", bucha, Grupo_R_gido_1, Junta_49_origin, VECTOR, Junta_49_axis, ALLOW_COMPLIANCE)
+  *SetJointIC (Junta_49, ROT, 0.0, 0.0)
+  *SetJointICFlag (Junta_49, ROT, False)
+  *Set (Junta_49.isbush, True)
+  *SetBush (Junta_49.bush, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.kt.value, LIN, DS_SystemBushingRates.kt.value, LIN, 0.0, LIN, DS_SystemBushingRates.ct.value, LIN, DS_SystemBushingRates.ct.value, LIN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+  
+  *Output (Junta_49_DISPLACEMENT, "Junta 49 - REVOLUTE - DESLOCAMENTO", DISP, Junta_49, Global_Frame, I_MARKER)
+  *Set (Junta_49_DISPLACEMENT.cnames, {"MAG","X","Y","Z","","PSI","THETA","PHI"})
+  *Set (Junta_49_DISPLACEMENT.use_units, true)
+  
+  *Output (Junta_49_VELOCITY, "Junta 49 - REVOLUTE - VELOCIDADE", VEL, Junta_49, Global_Frame, I_MARKER)
+  *Set (Junta_49_VELOCITY.cnames, {"VM","VX","VY","VZ","WM","WX","WY","WZ"})
+  *Set (Junta_49_VELOCITY.use_units, true)
+  
+  *Output (Junta_49_ACCELERATION, "Junta 49 - REVOLUTE - ACELERAÇÃO", ACCL, Junta_49, Global_Frame, I_MARKER)
+  *Set (Junta_49_ACCELERATION.cnames, {"ACCM","ACCX","ACCY","ACCZ","WDTM","WDTX","WDTY","WDTZ"})
+  *Set (Junta_49_ACCELERATION.use_units, true)
+  
+  *Output (Junta_49_FORCE, "Junta 49 - REVOLUTE - FORÇA", FORCE, Junta_49, Global_Frame, I_MARKER)
+  *Set (Junta_49_FORCE.cnames, {"FM","FX","FY","FZ","TM","TX","TY","TZ"})
+  *Set (Junta_49_FORCE.use_units, true)
+  
+  *Sensor (sen_6, "Junta 49 - REVOLUTE Sensor Revolute DM")
+  *SetSensor (sen_6, EXPR, `DM({Junta_49.i.idstring}, {Junta_49.j.idstring})`, 0.001, GE, 1e-05, NO_CODGEN, OFF, HALT, NO_PRINT, NO_RESTART, NO_RETURN, 0.0)
+  
+  *Point (Junta_50_origin, "Junta 50 - REVOLUTE_origin")
+  *SetPoint (Junta_50_origin, 0.01800000086428538, -0.006499999597732851, -0.004999999923804013)
+  
+  *Vector (Junta_50_axis, `Junta 50 - REVOLUTE`)
+  *SetVector (Junta_50_axis, 0.0, -2.2567017698982283e-14, 0.00499999976493915)
+  *RevJoint (Junta_50, "Junta 50 - REVOLUTE", bucha, Grupo_R_gido_1, Junta_50_origin, VECTOR, Junta_50_axis, ALLOW_COMPLIANCE)
+  *SetJointIC (Junta_50, ROT, 0.0, 0.0)
+  *SetJointICFlag (Junta_50, ROT, False)
+  *Set (Junta_50.isbush, True)
+  *SetBush (Junta_50.bush, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.kt.value, LIN, DS_SystemBushingRates.kt.value, LIN, 0.0, LIN, DS_SystemBushingRates.ct.value, LIN, DS_SystemBushingRates.ct.value, LIN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+  
+  *Output (Junta_50_DISPLACEMENT, "Junta 50 - REVOLUTE - DESLOCAMENTO", DISP, Junta_50, Global_Frame, I_MARKER)
+  *Set (Junta_50_DISPLACEMENT.cnames, {"MAG","X","Y","Z","","PSI","THETA","PHI"})
+  *Set (Junta_50_DISPLACEMENT.use_units, true)
+  
+  *Output (Junta_50_VELOCITY, "Junta 50 - REVOLUTE - VELOCIDADE", VEL, Junta_50, Global_Frame, I_MARKER)
+  *Set (Junta_50_VELOCITY.cnames, {"VM","VX","VY","VZ","WM","WX","WY","WZ"})
+  *Set (Junta_50_VELOCITY.use_units, true)
+  
+  *Output (Junta_50_ACCELERATION, "Junta 50 - REVOLUTE - ACELERAÇÃO", ACCL, Junta_50, Global_Frame, I_MARKER)
+  *Set (Junta_50_ACCELERATION.cnames, {"ACCM","ACCX","ACCY","ACCZ","WDTM","WDTX","WDTY","WDTZ"})
+  *Set (Junta_50_ACCELERATION.use_units, true)
+  
+  *Output (Junta_50_FORCE, "Junta 50 - REVOLUTE - FORÇA", FORCE, Junta_50, Global_Frame, I_MARKER)
+  *Set (Junta_50_FORCE.cnames, {"FM","FX","FY","FZ","TM","TX","TY","TZ"})
+  *Set (Junta_50_FORCE.use_units, true)
+  
+  *Sensor (sen_7, "Junta 50 - REVOLUTE Sensor Revolute DM")
+  *SetSensor (sen_7, EXPR, `DM({Junta_50.i.idstring}, {Junta_50.j.idstring})`, 0.001, GE, 1e-05, NO_CODGEN, OFF, HALT, NO_PRINT, NO_RESTART, NO_RETURN, 0.0)
+  
+  *Point (Junta_51_origin, "Junta 51 - REVOLUTE_origin")
+  *SetPoint (Junta_51_origin, 0.010000000864267306, 0.0015000004022489922, -0.004999999923794991)
+  
+  *Vector (Junta_51_axis, `Junta 51 - REVOLUTE`)
+  *SetVector (Junta_51_axis, 0.0, -2.257178818854122e-14, 0.004999999764993298)
+  *RevJoint (Junta_51, "Junta 51 - REVOLUTE", bucha, Grupo_R_gido_1, Junta_51_origin, VECTOR, Junta_51_axis, ALLOW_COMPLIANCE)
+  *SetJointIC (Junta_51, ROT, 0.0, 0.0)
+  *SetJointICFlag (Junta_51, ROT, False)
+  *Set (Junta_51.isbush, True)
+  *SetBush (Junta_51.bush, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.kt.value, LIN, DS_SystemBushingRates.kt.value, LIN, 0.0, LIN, DS_SystemBushingRates.ct.value, LIN, DS_SystemBushingRates.ct.value, LIN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+  
+  *Output (Junta_51_DISPLACEMENT, "Junta 51 - REVOLUTE - DESLOCAMENTO", DISP, Junta_51, Global_Frame, I_MARKER)
+  *Set (Junta_51_DISPLACEMENT.cnames, {"MAG","X","Y","Z","","PSI","THETA","PHI"})
+  *Set (Junta_51_DISPLACEMENT.use_units, true)
+  
+  *Output (Junta_51_VELOCITY, "Junta 51 - REVOLUTE - VELOCIDADE", VEL, Junta_51, Global_Frame, I_MARKER)
+  *Set (Junta_51_VELOCITY.cnames, {"VM","VX","VY","VZ","WM","WX","WY","WZ"})
+  *Set (Junta_51_VELOCITY.use_units, true)
+  
+  *Output (Junta_51_ACCELERATION, "Junta 51 - REVOLUTE - ACELERAÇÃO", ACCL, Junta_51, Global_Frame, I_MARKER)
+  *Set (Junta_51_ACCELERATION.cnames, {"ACCM","ACCX","ACCY","ACCZ","WDTM","WDTX","WDTY","WDTZ"})
+  *Set (Junta_51_ACCELERATION.use_units, true)
+  
+  *Output (Junta_51_FORCE, "Junta 51 - REVOLUTE - FORÇA", FORCE, Junta_51, Global_Frame, I_MARKER)
+  *Set (Junta_51_FORCE.cnames, {"FM","FX","FY","FZ","TM","TX","TY","TZ"})
+  *Set (Junta_51_FORCE.use_units, true)
+  
+  *Sensor (sen_8, "Junta 51 - REVOLUTE Sensor Revolute DM")
+  *SetSensor (sen_8, EXPR, `DM({Junta_51.i.idstring}, {Junta_51.j.idstring})`, 0.001, GE, 1e-05, NO_CODGEN, OFF, HALT, NO_PRINT, NO_RESTART, NO_RETURN, 0.0)
+  
+  *Point (Junta_52_origin, "Junta 52 - REVOLUTE_origin")
+  *SetPoint (Junta_52_origin, 0.017999999225131704, 0.001500000827946755, -0.011499999806291638)
+  
+  *Vector (Junta_52_axis, `Junta 52 - REVOLUTE`)
+  *SetVector (Junta_52_axis, 0.0, 2.707968398130145e-14, 0.011999999999999997)
+  *RevJoint (Junta_52, "Junta 52 - REVOLUTE", bucha, B_Ground, Junta_52_origin, VECTOR, Junta_52_axis, ALLOW_COMPLIANCE)
+  *SetJointIC (Junta_52, ROT, 0.0, 0.0)
+  *SetJointICFlag (Junta_52, ROT, False)
+  *Set (Junta_52.isbush, True)
+  *SetBush (Junta_52.bush, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.kt.value, LIN, DS_SystemBushingRates.kt.value, LIN, 0.0, LIN, DS_SystemBushingRates.ct.value, LIN, DS_SystemBushingRates.ct.value, LIN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+  
+  *Output (Junta_52_DISPLACEMENT, "Junta 52 - REVOLUTE - DESLOCAMENTO", DISP, Junta_52, Global_Frame, I_MARKER)
+  *Set (Junta_52_DISPLACEMENT.cnames, {"MAG","X","Y","Z","","PSI","THETA","PHI"})
+  *Set (Junta_52_DISPLACEMENT.use_units, true)
+  
+  *Output (Junta_52_VELOCITY, "Junta 52 - REVOLUTE - VELOCIDADE", VEL, Junta_52, Global_Frame, I_MARKER)
+  *Set (Junta_52_VELOCITY.cnames, {"VM","VX","VY","VZ","WM","WX","WY","WZ"})
+  *Set (Junta_52_VELOCITY.use_units, true)
+  
+  *Output (Junta_52_ACCELERATION, "Junta 52 - REVOLUTE - ACELERAÇÃO", ACCL, Junta_52, Global_Frame, I_MARKER)
+  *Set (Junta_52_ACCELERATION.cnames, {"ACCM","ACCX","ACCY","ACCZ","WDTM","WDTX","WDTY","WDTZ"})
+  *Set (Junta_52_ACCELERATION.use_units, true)
+  
+  *Output (Junta_52_FORCE, "Junta 52 - REVOLUTE - FORÇA", FORCE, Junta_52, Global_Frame, I_MARKER)
+  *Set (Junta_52_FORCE.cnames, {"FM","FX","FY","FZ","TM","TX","TY","TZ"})
+  *Set (Junta_52_FORCE.use_units, true)
+  
+  *Sensor (sen_9, "Junta 52 - REVOLUTE Sensor Revolute DM")
+  *SetSensor (sen_9, EXPR, `DM({Junta_52.i.idstring}, {Junta_52.j.idstring})`, 0.001, GE, 1e-05, NO_CODGEN, OFF, HALT, NO_PRINT, NO_RESTART, NO_RETURN, 0.0)
+  
+  *Point (Junta_54_origin, "Junta 54 - PLANAR_origin")
+  *SetPoint (Junta_54_origin, 0.1680000015869757, 0.0014974944933980033, 0.017609249689506848)
+  
+  *Vector (Junta_54_axis1, `Junta 54 - PLANAR`)
+  *SetVector (Junta_54_axis1, 0.9999999999999999, -2.256639319853093e-12, 0.0)
+  *PlanarJoint (Junta_54, "Junta 54 - PLANAR", Grupo_R_gido_1, aba1_1, Junta_54_origin, NORMAL, VECTOR, Junta_54_axis1, ALLOW_COMPLIANCE)
+  *Set (Junta_54.isbush, True)
+  *SetBush (Junta_54.bush, LIN, 0.0, LIN, 0.0, LIN, DS_SystemBushingRates.k.value, LIN, 0.0, LIN, 0.0, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.kt.value, LIN, DS_SystemBushingRates.kt.value, LIN, 0.0, LIN, DS_SystemBushingRates.ct.value, LIN, DS_SystemBushingRates.ct.value, LIN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+  *SetOrientation (Junta_54.bush, ANGLES, , 89.99999999987071, 90.0, -90.0)
+  
+  *Output (Junta_54_DISPLACEMENT, "Junta 54 - PLANAR - DESLOCAMENTO", DISP, Junta_54, Global_Frame, I_MARKER)
+  *Set (Junta_54_DISPLACEMENT.cnames, {"MAG","X","Y","Z","","PSI","THETA","PHI"})
+  *Set (Junta_54_DISPLACEMENT.use_units, true)
+  
+  *Output (Junta_54_VELOCITY, "Junta 54 - PLANAR - VELOCIDADE", VEL, Junta_54, Global_Frame, I_MARKER)
+  *Set (Junta_54_VELOCITY.cnames, {"VM","VX","VY","VZ","WM","WX","WY","WZ"})
+  *Set (Junta_54_VELOCITY.use_units, true)
+  
+  *Output (Junta_54_ACCELERATION, "Junta 54 - PLANAR - ACELERAÇÃO", ACCL, Junta_54, Global_Frame, I_MARKER)
+  *Set (Junta_54_ACCELERATION.cnames, {"ACCM","ACCX","ACCY","ACCZ","WDTM","WDTX","WDTY","WDTZ"})
+  *Set (Junta_54_ACCELERATION.use_units, true)
+  
+  *Output (Junta_54_FORCE, "Junta 54 - PLANAR - FORÇA", FORCE, Junta_54, Global_Frame, I_MARKER)
+  *Set (Junta_54_FORCE.cnames, {"FM","FX","FY","FZ","TM","TX","TY","TZ"})
+  *Set (Junta_54_FORCE.use_units, true)
+  
+  *Sensor (sen_10, "Junta 54 - PLANAR Sensor Planar MAG DZ")
+  *SetSensor (sen_10, EXPR, `ABS(DZ({Junta_54.i.idstring}, {Junta_54.j.idstring}, {Junta_54.j.idstring}))`, 0.001, GE, 1e-05, NO_CODGEN, OFF, HALT, NO_PRINT, NO_RESTART, NO_RETURN, 0.0)
+  
+  *System (sys_Motor_6, "Motor 6", def_sys_Motor_6)
+  
+  
+  // Ids/Nums/Notes
+*EndDefine ()
+
+*DefineDataSet (def_DS_SystemBushingRates)
+  *Real (k, "K", EDIT)
+  *SetReal (k, 5000000.0)
+  
+  *Real (c, "C", EDIT)
+  *SetReal (c, 250000.0)
+  
+  *Real (kt, "KT", EDIT)
+  *SetReal (kt, 10000000.0)
+  
+  *Real (ct, "CT", EDIT)
+  *SetReal (ct, 500000.0)
+  
+  
+  // Ids/Nums/Notes
+*EndDefine ()
+
+*DefineGraphic (def_Grupo_R_gido_1_GraphicSystem)
+  *Graphic (aba1_cadGraphic, "aba1 - CADGraphic", CADGraphic, sys_inspire3___simulacao3.Grupo_R_gido_1, False, 60, "inspire3 - simulacao3_MKS.x_t", {"aba1"}, MARKER, Global_Frame, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 1, 1)
+  *SetColorMaterialReference (aba1_cadGraphic, mat_8db3e2)
+  
+  *Graphic (laranja_cadGraphic, "laranja - CADGraphic", CADGraphic, sys_inspire3___simulacao3.Grupo_R_gido_1, False, 60, "inspire3 - simulacao3_MKS.x_t", {"laranja"}, MARKER, Global_Frame, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 1, 1)
+  *SetColorMaterialReference (laranja_cadGraphic, mat_76913c)
+  
+  
+  // Ids/Nums/Notes
+*EndDefine ()
+
+*DefineSystem (def_sys_Motor_6)
+  *Point (i_pt, "I Point")
+  *SetPoint (i_pt, 0.017999999225131704, 0.001500000827946755, -0.01149999980629164)
+  
+  *Point (j_pt, "J Point")
+  *SetPoint (j_pt, 0.017999999225131704, 0.001500000827946755, -0.01149999980629164)
+  
+  *Marker (i_marker, "Marker I", sys_inspire3___simulacao3.bucha, i_pt, )
+  *SetOrientation (i_marker, ANGLES, , 0.0, 180.0, -180.0)
+  
+  *Marker (j_marker, "Marker J", B_Ground, j_pt, )
+  *SetOrientation (j_marker, ANGLES, , 0.0, 180.0, -180.0)
+  
+  *DataSet (Motor_6_Parameters, "Parameters", def_Motor_6_Parameters)
+  
+  *SolverVariable (velocity, "Motor 6 - Angular Velocity")
+  *SetSolverVariable (velocity, EXPR, `WZ({i_marker.idstring}, {j_marker.idstring}, {j_marker.idstring})`, 0.0)
+  
+  *SolverVariable (acceleration, "Motor 6- Angular Acceleration")
+  *SetSolverVariable (acceleration, EXPR, `WDTZ({i_marker.idstring}, {j_marker.idstring}, {j_marker.idstring}, {j_marker.idstring})`, 0.0)
+  
+  *SolverVariable (force_signal, "Motor 6 - Torque")
+  *SetSolverVariable (force_signal, EXPR, `{Motor_6_Parameters.scale.value}*({Motor_6_Parameters.ucfp.value}*{Motor_6_Parameters.kp.value}*VARVAL({error_variable.idstring})+{Motor_6_Parameters.ucfi.value}*{Motor_6_Parameters.ki.value}*DIF({signal_error.idstring})+{Motor_6_Parameters.ucfd.value}*{Motor_6_Parameters.kd.value}*DIF1({signal_deriv_error.idstring}))`, OFF)
+  
+  *SolverVariable (desired_signal, "Motor 6 - Reference Speed")
+  *SetSolverVariable (desired_signal, EXPR, `STEP5(TIME,{Motor_6_Parameters.startTime.value},0,{Motor_6_Parameters.startTime.value}+{Motor_6_Parameters.duration.value},{Motor_6_Parameters.value.value})`, 0.0)
+  
+  *Output (Motor_6_kinematic_output, "Motor 6 - Kinematic Output", EXPR, `AZ ({i_marker.idstring}, {j_marker.idstring})`, `WZ({i_marker.idstring}, {j_marker.idstring}, {j_marker.idstring})`, `WDTZ({i_marker.idstring}, {j_marker.idstring}, {j_marker.idstring}, {j_marker.idstring})`, `(VARVAL({acceleration.idstring})-DELAY(VARVAL({acceleration.idstring}),0.001,0))/0.001`, , )
+  *Set (Motor_6_kinematic_output.cnames, {"","Angular_Displacement","Angular_Velocity","Angular_Acceleration","","Angular_Jerk","",""})
+  *Set (Motor_6_kinematic_output.use_units, true)
+  
+  *Output (Motor_6_power_output, "Motor 6 - Saída de Potência", EXPR, `VARVAL({velocity.idstring})*VARVAL({force_signal.idstring})`, , , , , )
+  *Set (Motor_6_power_output.cnames, {"","Power","","","","","",""})
+  *Set (Motor_6_power_output.use_units, true)
+  
+  *SolverVariable (displacement, "Motor 6 - Angular Displacement")
+  *SetSolverVariable (displacement, EXPR, `AZ ({i_marker.idstring}, {j_marker.idstring})`, 0.0)
+  
+  *SolverVariable (actual_signal, "Actual Signal")
+  *SetSolverVariable (actual_signal, EXPR, `VARVAL({velocity.idstring})-0`, 0.0)
+  
+  *SolverVariable (error_variable, "Error Variable")
+  *SetSolverVariable (error_variable, EXPR, `VARVAL({desired_signal.idstring})-VARVAL({actual_signal.idstring})`, 0.0)
+  
+  *Output (Motor_6_controller_output, "Motor 6 - Controller Output", EXPR, `VARVAL({desired_signal.idstring})`, `VARVAL({actual_signal.idstring})`, `VARVAL({error_variable.idstring})`, , , )
+  *Set (Motor_6_controller_output.cnames, {"","Desired","Actual","Error","","","",""})
+  *Set (Motor_6_controller_output.use_units, true)
+  
+  *SolverDiffEquation (signal_error, "signal_error")
+  *SetSolverDiffEquation (signal_error, EXPLICIT, EXPR, `VARVAL({error_variable.idstring})`, , 0.0, 0.0)
+  
+  *SolverDiffEquation (signal_deriv_error, "signal_deriv_error")
+  *SetSolverDiffEquation (signal_deriv_error, IMPLICIT, EXPR, `DIF({signal_deriv_error.idstring})-VARVAL({error_variable.idstring})`, , 0.0, 0.0)
+  
+  *ActionReactionForce (force_ij, "Motor Force IJ", SC_ROT, i_marker.body, j_marker.body, i_marker.origin, j_marker.zaxis)
+  *SetForce (force_ij, EXPR, `{Motor_6_Parameters.scale.value}*({Motor_6_Parameters.ucfp.value}*{Motor_6_Parameters.kp.value}*VARVAL({error_variable.idstring})+{Motor_6_Parameters.ucfi.value}*{Motor_6_Parameters.ki.value}*DIF({signal_error.idstring})+{Motor_6_Parameters.ucfd.value}*{Motor_6_Parameters.kd.value}*DIF1({signal_deriv_error.idstring}))`)
+  
+  *Output (Motor_6_output, "Motor 6 - Output", EXPR, `{Motor_6_Parameters.scale.value}*({Motor_6_Parameters.ucfp.value}*{Motor_6_Parameters.kp.value}*VARVAL({error_variable.idstring})+{Motor_6_Parameters.ucfi.value}*{Motor_6_Parameters.ki.value}*DIF({signal_error.idstring})+{Motor_6_Parameters.ucfd.value}*{Motor_6_Parameters.kd.value}*DIF1({signal_deriv_error.idstring}))`, `SFORCE({force_ij.idstring}, 0, 5, 0)`, , `SFORCE({force_ij.idstring}, 0, 6, 0)`, `SFORCE({force_ij.idstring}, 0, 7, 0)`, `SFORCE({force_ij.idstring}, 0, 8, 0)`)
+  *Set (Motor_6_output.cnames, {"","Torque","TM","","","TX","TY","TZ"})
+  *Set (Motor_6_output.use_units, true)
+  
+  *Vector (centerline_axis, `Centerline`)
+  *SetVector (centerline_axis, 0.0, -1.2246467991473532e-16, -1.0)
+  *RevJoint (centerline, "Centerline", sys_inspire3___simulacao3.bucha, B_Ground, i_pt, VECTOR, centerline_axis, ALLOW_COMPLIANCE)
+  *SetJointIC (centerline, ROT, 0.0, 0.0)
+  *SetJointICFlag (centerline, ROT, False)
+  *Set (centerline.isbush, False)
+  *SetBush (centerline.bush, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.k.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.c.value, LIN, DS_SystemBushingRates.kt.value, LIN, DS_SystemBushingRates.kt.value, LIN, 0.0, LIN, DS_SystemBushingRates.ct.value, LIN, DS_SystemBushingRates.ct.value, LIN, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+  *SetOrientation (centerline.bush, ANGLES, , 0.0, 180.0, -180.0)
+  
+  *Output (Motor_6_centerline_DISPLACEMENT, "Motor 6 - Centerline - DESLOCAMENTO", DISP, centerline, Global_Frame, I_MARKER)
+  *Set (Motor_6_centerline_DISPLACEMENT.cnames, {"MAG","X","Y","Z","","PSI","THETA","PHI"})
+  *Set (Motor_6_centerline_DISPLACEMENT.use_units, true)
+  
+  *Output (Motor_6_centerline_VELOCITY, "Motor 6 - Centerline - VELOCIDADE", VEL, centerline, Global_Frame, I_MARKER)
+  *Set (Motor_6_centerline_VELOCITY.cnames, {"VM","VX","VY","VZ","WM","WX","WY","WZ"})
+  *Set (Motor_6_centerline_VELOCITY.use_units, true)
+  
+  *Output (Motor_6_centerline_ACCELERATION, "Motor 6 - Centerline - ACELERAÇÃO", ACCL, centerline, Global_Frame, I_MARKER)
+  *Set (Motor_6_centerline_ACCELERATION.cnames, {"ACCM","ACCX","ACCY","ACCZ","WDTM","WDTX","WDTY","WDTZ"})
+  *Set (Motor_6_centerline_ACCELERATION.use_units, true)
+  
+  *Output (Motor_6_centerline_FORCE, "Motor 6 - Centerline - FORÇA", FORCE, centerline, Global_Frame, I_MARKER)
+  *Set (Motor_6_centerline_FORCE.cnames, {"FM","FX","FY","FZ","TM","TX","TY","TZ"})
+  *Set (Motor_6_centerline_FORCE.use_units, true)
+  
+  *Sensor (sen_0, "Motor_6 Sensor Motor Orientation")
+  *SetSensor (sen_0, EXPR, `SQRT(AX({i_marker.idstring}, {j_marker.idstring})**2+AY({i_marker.idstring}, {j_marker.idstring})**2)`, 0.2617993877991494, GE, 0.001, NO_CODGEN, OFF, HALT, NO_PRINT, NO_RESTART, NO_RETURN, 0.0)
+  
+  
+  // Ids/Nums/Notes
+*EndDefine ()
+
+*DefineDataSet (def_Motor_6_Parameters)
+  *Real (value, "Velocidade", EDIT)
+  *SetReal (value, 6.283185307188614)
+  
+  *Real (startTime, "Tempo Inicial", EDIT)
+  *SetReal (startTime, 0.0)
+  
+  *Real (duration, "Duração", EDIT)
+  *SetReal (duration, 0.5)
+  
+  *Real (kp, "Proportional Gain", EDIT)
+  *SetReal (kp, 100.0)
+  
+  *Real (ki, "Integral Gain", EDIT)
+  *SetReal (ki, 10.0)
+  
+  *Real (kd, "Derivative Gain", EDIT)
+  *SetReal (kd, 0.0)
+  
+  *Real (scale, "Scale Factor", EDIT)
+  *SetReal (scale, 1.0)
+  
+  *Real (ucfp, "UCF Proportional", EDIT)
+  *SetReal (ucfp, 1.0)
+  
+  *Real (ucfi, "UCF Integral", EDIT)
+  *SetReal (ucfi, 1.0)
+  
+  *Real (ucfd, "UCF Derivative", EDIT)
+  *SetReal (ucfd, 1.0)
+  
+  
+  // Ids/Nums/Notes
+*EndDefine ()
+
+*ColorMaterial (mat_814c74, "#814c74")
+*SetColorMaterialSimple (mat_814c74, 0.5058823529411764, 0.2980392156862745, 0.4549019607843137)
+
+*ColorMaterial (mat_4bacc6, "#4bacc6")
+*SetColorMaterialSimple (mat_4bacc6, 0.29411764705882354, 0.6745098039215687, 0.7764705882352941)
+
+*ColorMaterial (mat_8db3e2, "#8db3e2")
+*SetColorMaterialSimple (mat_8db3e2, 0.5529411764705883, 0.7019607843137254, 0.8862745098039215)
+
+*ColorMaterial (mat_76913c, "#76913c")
+*SetColorMaterialSimple (mat_76913c, 0.4627450980392157, 0.5686274509803921, 0.23529411764705882)
+
+
+*EndMDL ()
+
